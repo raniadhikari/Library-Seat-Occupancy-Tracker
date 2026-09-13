@@ -1,0 +1,6 @@
+{
+  "name": "Library Seat Occupancy Tracker",
+  "description": "BCA College Project: Library Seat Occupancy Tracker in Java with interactive seat allocation, search by Roll No, textbook OOP Java source code, menu-driven console runner, and viva guide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
