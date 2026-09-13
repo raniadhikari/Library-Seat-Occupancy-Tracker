@@ -96,15 +96,37 @@ async function startServer() {
   // Download raw file
   app.get("/api/java/download/:filename", (req, res) => {
     const filename = req.params.filename;
-    const allowed = ["Seat.java", "LibrarySeatTracker.java", "LibrarySwingGUI.java", "compile_and_run.sh", "compile_and_run.bat", "README.md"];
+    const allowed = [
+      "Seat.java", 
+      "LibrarySeatTracker.java", 
+      "LibrarySwingGUI.java", 
+      "LibraryWebServer.java",
+      "compile_and_run.sh", 
+      "compile_and_run.bat", 
+      "README.md",
+      "BCA_Viva_Project_Guide.txt",
+      "BCA_Library_Seat_Tracker_Java.zip"
+    ];
     if (!allowed.includes(filename)) {
       return res.status(404).send("File not found");
+    }
+    const publicZip = path.join(process.cwd(), "public", filename);
+    if (filename === "BCA_Library_Seat_Tracker_Java.zip" && fs.existsSync(publicZip)) {
+      return res.download(publicZip, filename);
     }
     const filePath = path.join(javaDir, filename);
     if (!fs.existsSync(filePath)) {
       return res.status(404).send("File not found on disk");
     }
     res.download(filePath, filename);
+  });
+
+  app.get("/api/java/download-zip", (req, res) => {
+    const publicZip = path.join(process.cwd(), "public", "BCA_Library_Seat_Tracker_Java.zip");
+    if (fs.existsSync(publicZip)) {
+      return res.download(publicZip, "BCA_Library_Seat_Tracker_Java.zip");
+    }
+    res.status(404).send("Zip archive not found");
   });
 
   // Vite middleware for development

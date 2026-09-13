@@ -59,25 +59,7 @@ export const JavaCodeViewer: React.FC = () => {
   };
 
   const handleDownloadAll = () => {
-    let bundle = `/**\n * BCA COLLEGE PROJECT: LIBRARY SEAT OCCUPANCY TRACKER IN JAVA\n * Course: Bachelor of Computer Applications\n * Topic: Object Oriented Programming in Java\n */\n\n`;
-    JAVA_PROJECT_FILES.forEach((f) => {
-      bundle += `\n// ==========================================================================\n`;
-      bundle += `// FILE: ${f.name}\n`;
-      bundle += `// CATEGORY: ${f.category}\n`;
-      bundle += `// DESCRIPTION: ${f.description}\n`;
-      bundle += `// ==========================================================================\n\n`;
-      bundle += f.code + `\n\n`;
-    });
-
-    const blob = new Blob([bundle], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'BCA_Library_Seat_Tracker_Java.java';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    window.location.href = '/api/java/download-zip';
   };
 
   return (

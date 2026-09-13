@@ -94,15 +94,24 @@ export const BcaProjectGuide: React.FC<BcaProjectGuideProps> = ({ stats, logs })
               </div>
               <div className="p-2.5 rounded-lg bg-black border border-zinc-850 flex justify-between">
                 <span className="text-zinc-400">Core Language:</span>
-                <span className="font-semibold text-white font-['JetBrains_Mono',monospace]">Java (JDK 8 / 11 / 17 / 21)</span>
+                <span className="font-semibold text-white font-['JetBrains_Mono',monospace]">100% Core Java (JDK 8 / 11 / 17 / 21)</span>
               </div>
               <div className="p-2.5 rounded-lg bg-black border border-zinc-850 flex justify-between">
-                <span className="text-zinc-400">User Interface:</span>
-                <span className="font-semibold text-white">CLI (Console) + Java Swing (GUI)</span>
+                <span className="text-zinc-400">User Interfaces:</span>
+                <span className="font-semibold text-white">CLI (Console) + Swing GUI + Java Web Server</span>
               </div>
               <div className="p-2.5 rounded-lg bg-black border border-zinc-850 flex justify-between">
                 <span className="text-zinc-400">Data Storage:</span>
-                <span className="font-semibold text-white font-['JetBrains_Mono',monospace]">Seat[] Array of Objects</span>
+                <span className="font-semibold text-white font-['JetBrains_Mono',monospace]">Seat[] Array of Objects (Encapsulated)</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-between">
+                <span className="text-zinc-300 font-semibold">Offline College Lab Zip:</span>
+                <a
+                  href="/api/java/download-zip"
+                  className="px-3 py-1 bg-white text-black font-bold text-xs rounded hover:bg-zinc-200 transition-colors inline-block"
+                >
+                  Download .zip
+                </a>
               </div>
             </div>
           </div>

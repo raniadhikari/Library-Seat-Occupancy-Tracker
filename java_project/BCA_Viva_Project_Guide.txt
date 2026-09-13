@@ -1,0 +1,75 @@
+===================================================================
+     BCA COLLEGE PROJECT - LIBRARY SEAT OCCUPANCY TRACKER IN JAVA
+===================================================================
+Student Course : Bachelor of Computer Applications (BCA)
+Subject        : Core Java Programming / Object-Oriented Programming (OOPs)
+Semester       : 4th / 5th / 6th Semester Practical Project
+
+1. PROJECT OBJECTIVE:
+--------------------
+To design and implement an automated Library Seat Occupancy Tracker
+using Core Java and Object Oriented Programming (OOP) concepts. The system
+helps library administrators check real-time seat availability, allocate seats
+to students by Roll Number, and generate occupancy reports.
+
+2. OOP CONCEPTS IMPLEMENTED:
+----------------------------
+a) Class and Object:
+   - 'Seat' is a template/class with attributes and methods.
+   - 24 seat instances are instantiated as objects in the program.
+
+b) Encapsulation & Data Hiding:
+   - Attributes like 'seatNumber', 'studentRollNo', 'studentName' are private.
+   - Accessed and modified strictly via public getters and setters.
+
+c) Array of Objects:
+   - 'Seat[] seats = new Seat[24]' demonstrates how a collection of real-world
+     objects is managed efficiently in memory.
+
+d) Control Structures:
+   - Menu-driven loop using 'do-while' and 'switch-case'.
+
+e) User Input Handling:
+   - Standard 'java.util.Scanner' class for taking console inputs.
+
+f) Desktop GUI (Java Swing):
+   - JFrame, JButton, and GridLayout for graphical interface.
+
+3. HOW TO COMPILE AND RUN:
+--------------------------
+Step 1: Open Terminal / Command Prompt
+Step 2: Navigate to this folder:
+        cd java_project
+Step 3: Compile all classes:
+        javac Seat.java LibrarySeatTracker.java LibrarySwingGUI.java LibraryWebServer.java
+Step 4: Run Console version:
+        java LibrarySeatTracker
+Step 5: Run Desktop Swing GUI:
+        java LibrarySwingGUI
+Step 6: Run Pure Java Web Server:
+        java LibraryWebServer
+        (Then open http://localhost:8080 in browser)
+
+4. TOP 5 VIVA QUESTIONS & ANSWERS FOR BCA:
+------------------------------------------
+Q1: What is an Array of Objects in Java?
+A1: An array of objects stores references to multiple instances of a class.
+    In our project, 'Seat[] seats = new Seat[24]' stores 24 individual seat objects.
+
+Q2: Why are attributes in 'Seat.java' declared as private?
+A2: To prevent direct unauthorized modification of data from outside the class.
+    This is known as Encapsulation or Data Hiding. Changes happen only via allocate()
+    and vacate() methods.
+
+Q3: What is the purpose of the Scanner class?
+A3: 'java.util.Scanner' is used to read formatted inputs like integers (nextInt)
+    and strings (nextLine) from the standard input stream (System.in).
+
+Q4: What is the difference between Console and Swing GUI?
+A4: The Console version uses text-based CLI menus with Scanner, while the Swing
+    version uses graphical window components like JFrame, JButton, and GridLayout.
+
+Q5: How does searching by Roll Number work in your code?
+A5: It performs a linear search through the 'seats' array using an enhanced for-loop
+    and compares the student's roll number using 'equalsIgnoreCase()'.
+===================================================================
