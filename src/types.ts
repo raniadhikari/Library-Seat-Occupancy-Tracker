@@ -43,7 +43,7 @@ export interface ActivityLog {
 
 export interface JavaCodeFile {
   name: string;
-  category: 'Core Java Class' | 'Menu Driven Main' | 'Swing GUI' | 'Viva & Documentation';
+  category: 'Core Java Class' | 'Menu Driven Main' | 'Swing GUI' | 'Viva & Documentation' | 'Windows Batch Script' | 'Linux / macOS Script' | 'Execution Script';
   description: string;
   code: string;
 }

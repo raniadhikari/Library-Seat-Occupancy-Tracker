@@ -5,7 +5,11 @@ import {
   Check, 
   Download, 
   FolderTree, 
-  GraduationCap
+  GraduationCap,
+  Play,
+  RefreshCw,
+  Cpu,
+  AlertCircle
 } from 'lucide-react';
 import { JAVA_PROJECT_FILES } from '../data/javaCodeSnippets';
 import { JavaCodeFile } from '../types';
@@ -13,6 +17,35 @@ import { JavaCodeFile } from '../types';
 export const JavaCodeViewer: React.FC = () => {
   const [selectedFile, setSelectedFile] = React.useState<JavaCodeFile>(JAVA_PROJECT_FILES[0]);
   const [copied, setCopied] = React.useState(false);
+  const [isCompiling, setIsCompiling] = React.useState(false);
+  const [compileResult, setCompileResult] = React.useState<{ success: boolean; message: string } | null>(null);
+
+  const handleCompile = async () => {
+    setIsCompiling(true);
+    setCompileResult(null);
+    try {
+      const res = await fetch('/api/java/compile', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setCompileResult({
+          success: true,
+          message: 'javac compiled Seat.java & LibrarySeatTracker.java successfully into bytecode (.class)',
+        });
+      } else {
+        setCompileResult({
+          success: false,
+          message: data.error || data.stderr || 'Compilation failed',
+        });
+      }
+    } catch (e: any) {
+      setCompileResult({
+        success: false,
+        message: 'Compilation request error: ' + e.message,
+      });
+    } finally {
+      setIsCompiling(false);
+    }
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(selectedFile.code);
@@ -21,15 +54,8 @@ export const JavaCodeViewer: React.FC = () => {
   };
 
   const handleDownloadSingle = () => {
-    const blob = new Blob([selectedFile.code], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = selectedFile.name;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    // Attempt download from server API first, fallback to blob
+    window.location.href = `/api/java/download/${selectedFile.name}`;
   };
 
   const handleDownloadAll = () => {
@@ -64,6 +90,8 @@ export const JavaCodeViewer: React.FC = () => {
             <div className="flex items-center gap-2 text-zinc-400 text-xs font-bold uppercase tracking-wider mb-1">
               <GraduationCap className="w-4 h-4 text-white" />
               <span>BCA Academic Project Java Code</span>
+              <span className="text-zinc-600">•</span>
+              <span className="text-emerald-400 text-[10px] font-mono">100% Core Java</span>
             </div>
             <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
               Library Seat Tracker — Clean Object-Oriented Java Source Code
@@ -73,16 +101,41 @@ export const JavaCodeViewer: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center flex-wrap gap-2 shrink-0">
+            <button
+              onClick={handleCompile}
+              disabled={isCompiling}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isCompiling ? 'animate-spin' : ''}`} />
+              <span>{isCompiling ? 'Compiling with javac...' : 'Test javac Compile'}</span>
+            </button>
+
             <button
               onClick={handleDownloadAll}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-bold shadow transition-colors cursor-pointer"
             >
               <Download className="w-4 h-4" />
-              <span>Download Project Code</span>
+              <span>Download Full Project</span>
             </button>
           </div>
         </div>
+
+        {/* Compile result alert */}
+        {compileResult && (
+          <div className={`mt-3 p-3 rounded-xl border text-xs flex items-center gap-2 ${
+            compileResult.success 
+              ? 'bg-zinc-900 border-emerald-500/50 text-emerald-300' 
+              : 'bg-black border-rose-500/50 text-rose-300'
+          }`}>
+            {compileResult.success ? (
+              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+            ) : (
+              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+            )}
+            <span className="font-['JetBrains_Mono',monospace]">{compileResult.message}</span>
+          </div>
+        )}
 
         {/* OOP Concepts Checklist */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 pt-4 border-t border-zinc-850 text-xs text-zinc-300">

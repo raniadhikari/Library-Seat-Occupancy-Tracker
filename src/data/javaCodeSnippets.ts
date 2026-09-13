@@ -422,6 +422,48 @@ public class LibrarySwingGUI extends JFrame {
 `,
   },
   {
+    name: 'compile_and_run.bat',
+    category: 'Windows Batch Script',
+    description: 'One-click run script for Windows college lab computers. Compiles with javac and runs java LibrarySeatTracker.',
+    code: `@echo off
+REM College Library Seat Tracker - Windows Batch Script for College Labs
+echo ==========================================
+echo Compiling College Library Seat Tracker...
+echo ==========================================
+javac Seat.java LibrarySeatTracker.java
+
+if %ERRORLEVEL% EQU 0 (
+    echo Compilation Successful!
+    echo Launching Java Console Application...
+    echo ==========================================
+    java LibrarySeatTracker
+) else (
+    echo [ERROR] Java compilation failed. Make sure JDK is installed and PATH is set.
+)
+pause
+`,
+  },
+  {
+    name: 'compile_and_run.sh',
+    category: 'Linux / macOS Script',
+    description: 'Bash executable script to compile and launch the Java application with one command.',
+    code: `#!/bin/bash
+# College Library Seat Tracker - Linux / macOS Run Script
+echo "=========================================="
+echo "Compiling Java Files..."
+echo "=========================================="
+javac Seat.java LibrarySeatTracker.java
+
+if [ $? -eq 0 ]; then
+    echo "Compilation successful! Starting Java program..."
+    echo "=========================================="
+    java LibrarySeatTracker
+else
+    echo "Compilation failed! Check syntax errors."
+fi
+`,
+  },
+  {
     name: 'BCA_Viva_Project_Guide.txt',
     category: 'Viva & Documentation',
     description: 'Summary of OOP concepts used, viva questions, and execution instructions for college project submission.',
